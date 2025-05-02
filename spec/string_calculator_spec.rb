@@ -30,4 +30,16 @@ RSpec.describe StringCalculator do
   it "raises an exception for negative numbers" do
     expect { calc.add("1,-2,-3") }.to raise_error("Negatives not allowed: -2, -3")
   end
+
+  it "ignores numbers greater than 1000" do
+    expect(calc.add("2,1001")).to eq(2)
+  end
+
+  it "supports custom delimiters of any length" do
+    expect(calc.add("//[***]\n1***2***3")).to eq(6)
+  end
+
+  it "supports multiple custom delimiters" do
+    expect(calc.add("//[*][%]\n1*2%3")).to eq(6)
+  end
 end

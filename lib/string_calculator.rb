@@ -8,8 +8,16 @@ class StringCalculator
 
     if input.start_with?("//")
       delimiter_line, input = input.split("\n", 2)
-      custom_delimiter = delimiter_line[2] # assumes single-character delimiter
-      delimiters = [custom_delimiter]
+      
+      # Handle multi-character delimiters inside square brackets
+      if delimiter_line.include?("[")
+        custom_delimiters = delimiter_line.scan(/\[([^\]]+)\]/).flatten
+        delimiters.concat(custom_delimiters)
+      else
+        # Single-character delimiter (e.g., //; or //, etc.)
+        custom_delimiter = delimiter_line[2]
+        delimiters = [custom_delimiter]
+      end
     end
 
     numbers = input.split(Regexp.union(delimiters)).map(&:to_i)
@@ -19,6 +27,6 @@ class StringCalculator
       raise "Negatives not allowed: #{negatives.join(', ')}"
     end
 
-    numbers.reduce(0, :+)
+    numbers.reject { |n| n > 1000 }.reduce(0, :+)
   end
 end
