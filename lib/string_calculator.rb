@@ -2,6 +2,8 @@
 
 class StringCalculator
   def add(input)
-    0
-  end
+    return 0 if input.strip.empty?
+
+    input.strip.to_i
+  end  
 end
