@@ -18,4 +18,12 @@ RSpec.describe StringCalculator do
   it "handles multiple numbers" do
     expect(calc.add("1,2,3,4")).to eq(10)
   end
+
+  it "supports newline as a delimiter" do
+    expect(calc.add("1\n2,3")).to eq(6)
+  end
+  
+  it "supports custom single-character delimiter" do
+    expect(calc.add("//;\n1;2")).to eq(3)
+  end
 end
