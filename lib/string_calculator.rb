@@ -19,6 +19,6 @@ class StringCalculator
       raise "Negatives not allowed: #{negatives.join(', ')}"
     end
 
-    numbers.reduce(0, :+)
+    numbers.reject { |n| n > 1000 }.reduce(0, :+)
   end
 end
