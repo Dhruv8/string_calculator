@@ -12,6 +12,13 @@ class StringCalculator
       delimiters = [custom_delimiter]
     end
 
-    input.split(Regexp.union(delimiters)).map(&:to_i).reduce(0, :+)
+    numbers = input.split(Regexp.union(delimiters)).map(&:to_i)
+
+    negatives = numbers.select { |n| n < 0 }
+    unless negatives.empty?
+      raise "Negatives not allowed: #{negatives.join(', ')}"
+    end
+
+    numbers.reduce(0, :+)
   end
 end
